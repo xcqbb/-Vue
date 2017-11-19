@@ -1,6 +1,7 @@
 <template>
     <header>
         <mt-header fixed title="饿了吗？"></mt-header>
+        <i></i>
     </header>
 </template>
 <script>
@@ -9,5 +10,8 @@
     }
 </script>
 <style scoped>
-
+header i {
+    display: block;
+    height: 40px;
+}
 </style>
