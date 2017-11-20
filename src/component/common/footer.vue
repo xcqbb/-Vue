@@ -24,5 +24,7 @@
     }
 </script>
 <style scoped>
-
+nav {
+    height: 50px;
+}
 </style>
