@@ -26,21 +26,16 @@
 export default {
   data() {
     return {
-      id: "",
-      jieko: "",
-      detail: []
+      detail: {}
     };
   },
   methods: {
     getDetail() {
-      this.axios.get(this.jieko).then(rsp => (this.detail = rsp.data.message[0]));
+      // 以前是在created里拼接字符串，但是这个是生命周期函数只会执行一次，所以我们选择在 这里直接拼接
+      this.axios.get(this.api.getND + this.$route.params.id).then( rsp => this.detail = rsp.data.message[0] )
     }
   },
   created() {
-    this.id = this.$route.params;
-    // console.log(this.id);
-    this.jieko = this.api.getND + this.id.id;
-    console.log(this.jieko);
     this.getDetail();
   }
 };
