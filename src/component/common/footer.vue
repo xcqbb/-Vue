@@ -1,5 +1,6 @@
 <template>
-  <nav class="mui-bar mui-bar-tab">
+  <div>
+      <nav class="mui-bar mui-bar-tab">
         <router-link class="mui-tab-item mui-active" to="/">
             <span class="mui-icon mui-icon-home"></span>
             <span class="mui-tab-label">首页</span>
@@ -17,6 +18,8 @@
             <span class="mui-tab-label">设置</span>
         </router-link>
     </nav>
+    <i></i>
+  </div>
 </template>
 <script>
     export default {
@@ -24,7 +27,9 @@
     }
 </script>
 <style scoped>
-nav {
+
+div i {
+    display: block;
     height: 50px;
 }
 </style>
