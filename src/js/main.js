@@ -14,14 +14,17 @@ Vue.prototype.axios = axios;
 import Filter from '../filter'
 
 // 导入全局样式，因为返回的数据当中 有自带img标签的图片 我们组件中带有 scoped 属性的样式 都是属性选择器， 选不中 这些自带img标签的图片
-
 import style from '../style/index.css';
+
+// 导入一个图片预览插件,这个插件是基于Vue的插件 要用use方法调用
+import vuePicturePreview from 'vue-picture-preview';
 
 // mint-ui vue-router 都是vue的插件所有的vue插件都要用use方法启用，如果不是vue插件那就不用了,use 主调用文件里面的install方法并传入Vue对象
 Vue.use(MintUi);
 Vue.use(Common);
 Vue.use(VueRouter);
 Vue.use(Filter);
+Vue.use(vuePicturePreview);
 
 // 导入根组件
 import AppComponent from '../component/App.vue';

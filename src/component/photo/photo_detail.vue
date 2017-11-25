@@ -11,7 +11,7 @@
                 </div>
 				<div class="mui-card-content">
 					<div class="mui-card-content-inner">
-                        <img v-for="item in images" v-bind:key="item.src" v-bind:src="item.src" alt="">
+                        <img v-for="item in images" v-bind:key="item.src" v-bind:src="item.src" v-preview="item.src">
                     </div>
 				</div>
 				<div class="mui-card-footer" v-html="info.content">
