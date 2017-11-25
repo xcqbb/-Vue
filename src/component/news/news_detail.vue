@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <!--  mui的卡片视图布局用的是flex 我们要把头部和底部改为block  -->
         <div class="mui-card">
 				<div class="mui-card-header">
           <h4>{{detail.title}}</h4>

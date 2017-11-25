@@ -10,6 +10,6 @@ export default {
     // 图片接口
     photoC: `${domain}/getimgcategory`,  // 获取图片分类
     photoL: `${domain}/getimages/`,    // 获取图片列表 需要id
-    photoD: `${domain}/getimageinfo/:id`,  //  图片列表的详情页接口 需要id
-    photoT: `${domain}/getthumimages/:id`  //  详情页的缩略图接口 需要id
+    photoD: `${domain}/getimageinfo/`,  //  图片列表的详情页接口 需要id
+    photoT: `${domain}/getthumimages/`  //  详情页的缩略图接口 需要id
 }
