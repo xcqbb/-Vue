@@ -29,9 +29,14 @@
         </router-link>
       </li>
     </ul>
-    <!-- 加载更多 -->
-    <button v-on:click="loadMore()"
-    class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加载更多</button>
+    <!-- 加载更多 
+      用v-bind添加一个禁用 属性，如果值为true那么禁用
+      再用插值表达式添加一个判断，如果值为true那么就是最后一页，false就是加载更多
+    -->
+    <button v-on:click="loadMore()" v-bind:disabled="isEmpty"
+    class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">
+      {{isEmpty?'已经是最后一页了':'点击加载下一页'}}
+    </button>
   </article>
 </template>
 
@@ -51,9 +56,7 @@
           this.axios.get(`${this.api.goodsL}?pageindex=${this.pageIndex}`)
           .then((rsp) => {
              this.goodsList.push(...rsp.data.message);
-             if(rsp.data.message.length == 0) {
-               this.isEmpty = true;
-             }
+             this.islastpath(rsp.data.message);
           });
         }
         
@@ -62,6 +65,12 @@
         // 点击加载跟多 触发事件 先让页码自增一次
         this.pageIndex++;
         this.getGoodsList();
+      },
+      // 把判断 是否是最后一页 单独写成一个方法，提高代码可读性
+      islastpath(list){
+        if(list.length == 0) {
+          this.isEmpty = true;
+        }
       }
     },
     created(){
