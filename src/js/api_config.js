@@ -11,5 +11,15 @@ export default {
     photoC: `${domain}/getimgcategory`,  // 获取图片分类
     photoL: `${domain}/getimages/`,    // 获取图片列表 需要id
     photoD: `${domain}/getimageinfo/`,  //  图片列表的详情页接口 需要id
-    photoT: `${domain}/getthumimages/`  //  详情页的缩略图接口 需要id
+    photoT: `${domain}/getthumimages/`,  //  详情页的缩略图接口 需要id
+    // 商品接口
+    goodsL:`${domain}/getgoods/`,   // 获取商品列表 需要页码
+    goodsD:`${domain}/goods/getdesc/`, // 需要商品id
+    goodsT:`${domain}/getthumimages/`, // 需要商品id
+    goodsP:`${domain}/getinfo/`,       // 需要商品id
+    // 购物车相关接口
+    shopcL:`${domain}/goods/getshopcarlist/`, // 需要id
+    // 评论相关接口
+    commentL:`${domain}/getcomments/`,  // 需要id
+    commentS:`${domain}/postcomment/`   // 需要id
 }
