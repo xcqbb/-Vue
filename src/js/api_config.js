@@ -16,7 +16,7 @@ export default {
     goodsL:`${domain}/getgoods/`,   // 获取商品列表 需要页码
     goodsD:`${domain}/goods/getdesc/`, // 需要商品id
     goodsT:`${domain}/getthumimages/`, // 需要商品id
-    goodsP:`${domain}/getinfo/`,       // 需要商品id
+    goodsP:`${domain}/goods/getinfo/`,       // 需要商品id
     // 购物车相关接口
     shopcL:`${domain}/goods/getshopcarlist/`, // 需要id
     // 评论相关接口
