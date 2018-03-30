@@ -14,7 +14,7 @@ export default {
     photoT: `${domain}/getthumimages/`,  //  详情页的缩略图接口 需要id
     // 商品接口
     goodsL:`${domain}/getgoods/`,   // 获取商品列表 需要页码
-    goodsD:`${domain}/goods/getdesc/`, // 需要商品id
+    goodsD:`${domain}/goods/getdesc/`, // 图文介绍接口 需要商品id
     goodsT:`${domain}/getthumimages/`, // 需要商品id
     goodsP:`${domain}/goods/getinfo/`,       // 需要商品id
     // 购物车相关接口

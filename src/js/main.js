@@ -40,6 +40,7 @@ new Vue({
     render(createNode) {
         return createNode(AppComponent);
     },
-    // 本来应该在这 写router: new VueRouter({}) 配置项的但是模块化开发，为了能够简洁一些还是放在router文件夹下的index.js下
+    // 本来应该在这 写router: new VueRouter({}) 路由配置项的，
+    // 但是模块化开发为了能够简洁一些还是放在router文件夹下的index.js下
     router: new VueRouter(routerConfig)
 });
