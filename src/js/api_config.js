@@ -18,7 +18,7 @@ export default {
     goodsT:`${domain}/getthumimages/`, // 需要商品id
     goodsP:`${domain}/goods/getinfo/`,       // 需要商品id
     // 购物车相关接口
-    shopcL:`${domain}/goods/getshopcarlist/`, // 需要id
+    shopcL:`${domain}/goods/getshopcarlist/`, // 需要ids 就是多个id，多个id用逗号分隔 当然这是可选，传一个也行
     // 评论相关接口
     commentL:`${domain}/getcomments/`,  // 需要id
     commentS:`${domain}/postcomment/`   // 需要id

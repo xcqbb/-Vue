@@ -15,14 +15,14 @@
         <div class="price"> <s>市场价:￥{{goodsPrice.market_price}}</s> <span>销售价: </span> <em>￥{{goodsPrice.sell_price}}</em> </div>
         <div> <span>购买数量：</span>
           <!--数字输入框组件-->
-          <app-numbox v-bind:initVal="1" @change="getTotal"></app-numbox>
+          <app-numbox v-bind:initVal="buyCount" @change="getTotal"></app-numbox>
         </div>
       </div>
       <!-- 按钮 -->
       <div class="mui-card-footer">
       	<button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">结算</button>
         <div></div>
-        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加入购物车</button>
+        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined" @click="addShopcart">加入购物车</button>
       </div>
     </div>
 
@@ -58,13 +58,15 @@
 <script>
 // 引用子组件文件  并且还要components中注册才能使用
 import IntroComponent from './intro/intro.vue';
+import storage from '../../js/storage.js';
 export default {
   data() {
     return {
       id: this.$route.params.id,
       lunbos: [],
       goodsPrice: {},
-      tab:"tab-container1"
+      tab:"tab-container1",
+      buyCount:1
     };
   },
   methods: {
@@ -83,12 +85,28 @@ export default {
         .then(rsp => (this.goodsPrice = rsp.data.message[0]));
     },
     getTotal(total) {
-      console.log(total);
+      this.buyCount = total;
+    },
+    addShopcart(){
+      // 因为程序读写的原因  写文件是把整个文件清空再写(也就是覆盖)，而不是在内容的末尾添加所以这里要借助一个第3方变量
+      // 把本地存储的对象取出来存进变量中，如没有那就存入一个空对象
+      let oldBuyData =  storage.get('goodsBuyCount') || {};
+      // 然后再把 当前这次购买的商品id和数量添加到变量中
+      oldBuyData[this.id] = this.buyCount;
+      // 然后再把这个变量写入 这个本地存储的对象中
+      storage.set('goodsBuyCount',oldBuyData);
+    },
+    TheEchoData(){ // 数据回显，如果用户离开了该商品详情页后又想修改商品数量，点回商品详情页那么会发现数字输入框中的数字不是他上次选择的购买数量
+      let BuyData = storage.get('goodsBuyCount') || {}; 
+      this.buyCount = BuyData[this.id];
+      // 空对象[id] 是 undefined 为了避免这种情况所以得判断一下
+      this.buyCount == undefined?this.buyCount = 1:this.buyCount;
     }
   },
   created() {
     this.getGoodsThumList();
     this.getGoodsPrice();
+    this.TheEchoData();
   },
   // 注册子组件
   components:{

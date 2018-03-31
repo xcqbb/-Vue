@@ -5,6 +5,7 @@ import PhotoListComponent from '../photo/photo_list.vue';
 import PhotoDetailComponent from '../photo/photo_detail.vue';
 import GoodsListComponent from '../goods/goods_list.vue';
 import GoodsDetailComponent from '../goods/goods_detail.vue';
+import Shopcart from '../shopcart/shopCart.vue';
 
 // 对外导出一个路由配置对象
 export default {
@@ -22,6 +23,8 @@ export default {
         { name:"pd", path:"/photo/detail/:id",component:PhotoDetailComponent },
         // 商品相关页面的路由
         { name:"gl", path:"/goods/list",component:GoodsListComponent },
-        { name:"gd", path:"/goods/detail/:id",component:GoodsDetailComponent }
+        { name:"gd", path:"/goods/detail/:id",component:GoodsDetailComponent },
+        // 购物车相关页面的路由
+        { name:"sc", path:"/shopcart",component:Shopcart }
     ]
 }

@@ -5,7 +5,7 @@ export default {
     },
     // 获取数据的封装
     get(key) {
-        let val = loclaStorage.getItem(key);
+        let val = localStorage.getItem(key);
         try {   // 因为解析的变量不是以json格式存储的字符串那么会报错，所以我们用try抛出 这样不会影响程序的正常执行
             val = JSON.parse(val);
         }finally {
@@ -14,6 +14,6 @@ export default {
     },
     // 清除数据的封装
     clear(){
-        localstorage.clear();
+        localStorage.clear();
     }
 }
