@@ -66,7 +66,9 @@ export default {
       lunbos: [],
       goodsPrice: {},
       tab:"tab-container1",
-      buyCount:1
+      buyCount:0
+      // 数据回显  也可以这样写哦
+      // buyCount:(storage.get('goodsBuyCount')||{})[this.$route.params.id] || 0
     };
   },
   methods: {

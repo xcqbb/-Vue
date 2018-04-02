@@ -9,6 +9,8 @@ import Shopcart from '../shopcart/shopCart.vue';
 
 // 对外导出一个路由配置对象
 export default {
+    // linkActiveClass 该配置项可以随着 访问地址的改变(切换路由) 而激活对应类名
+    linkActiveClass:'mui-active',
     // 创建新的组件就要配置的路由里来
     routes:[
         { path: "/",redirect:"/index"}, 
