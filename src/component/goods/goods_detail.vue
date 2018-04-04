@@ -90,13 +90,18 @@ export default {
       this.buyCount = total;
     },
     addShopcart(){
+      // 这些都是 通过本地存储中的数据 完成加入购物车功能的逻辑代码，现在我们用vuex来代替他
       // 因为程序读写的原因  写文件是把整个文件清空再写(也就是覆盖)，而不是在内容的末尾添加所以这里要借助一个第3方变量
       // 把本地存储的对象取出来存进变量中，如没有那就存入一个空对象
-      let oldBuyData =  storage.get('goodsBuyCount') || {};
+      // let oldBuyData =  storage.get('goodsBuyCount') || {};
       // 然后再把 当前这次购买的商品id和数量添加到变量中
-      oldBuyData[this.id] = this.buyCount;
+      // oldBuyData[this.id] = this.buyCount;
       // 然后再把这个变量写入 这个本地存储的对象中
-      storage.set('goodsBuyCount',oldBuyData);
+      // storage.set('goodsBuyCount',oldBuyData);
+      this.$store.commit('upBuyData',{
+          id:this.id,
+          total:this.buyCount
+        });
     },
     TheEchoData(){ // 数据回显，如果用户离开了该商品详情页后又想修改商品数量，点回商品详情页那么会发现数字输入框中的数字不是他上次选择的购买数量
       let BuyData = storage.get('goodsBuyCount') || {}; 

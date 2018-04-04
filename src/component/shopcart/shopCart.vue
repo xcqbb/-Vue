@@ -13,7 +13,7 @@
             <li>￥{{item.sell_price}}</li>
             <li>
               <!-- 数字输入框组件 -->
-              <app-numbox v-bind:initVal="buyGoodsData[item.id]" @change="modifyBuyData(item.id,$event)"></app-numbox>
+              <app-numbox v-bind:initVal="$store.state.goodsBuyCount[item.id]" @change="modifyBuyData(item.id,$event)"></app-numbox>
             </li>
             <li>
               <!-- 这里有个坑 那就是不可以用delete运算符 
@@ -50,14 +50,18 @@ import storage from '../../js/storage.js';
 export default {
   data(){
     return{
-      buyGoodsList:[],
-      buyGoodsData:storage.get('goodsBuyCount')
+      buyGoodsList:[]
+      // buyGoodsData:storage.get('goodsBuyCount')
     }
   },
   methods:{
     // 获取购物车列表数据的方法
     getBuyGoodsList(){
-      let ids = Object.keys(storage.get('goodsBuyCount')).join(',');
+      let ids = Object.keys(this.$store.state.goodsBuyCount).join(',');
+      if(!ids){
+        return false;
+      }
+      // 还可以这样写 !ids == null &&
       this.axios.get(this.api.shopcL+ids)
       .then(rsp=>{
         // 其实Mint ui提供的组件使用v-model绑定的属性会动态添加到buyGoodsList中，但是这个属性的值是false
@@ -78,30 +82,41 @@ export default {
     // 根据 子组件 传过来的 参数 而修改 内存中的数据 
     modifyBuyData(id,val){
       // console.log(id,val);
-      this.buyGoodsData[id] = val;
+      // 这是修改 内存中的数据
+      // this.buyGoodsData[id] = val;
       // console.log(this.buyGoodsData);
+      // 而现在要修改vuex中的数据
+      this.$store.commit('upBuyData',{id:id,total:val});
     },
     // 根据id删除 商品的方法
     delGoods(id){
-      // delte this.buyGoodsData[id]  这样删除是无效的
-      this.$delete(this.buyGoodsData,id);
+
+      // 这些都是 在操作本地存储中的数据 现在通通 注释掉使用vuex改造
+
+      // vue中不支持使用delete运算符 要使用它自带的$delete 来删除对象中的属性
+      // delete this.buyGoodsData[id]  这样删除是无效的
+      // this.$delete(this.buyGoodsData,id);
       // filter过滤器的意思  也就把不符合 回调函数中规定 的一项给删除掉
       // 这里没有第一项参数 过滤器名 直接用回调也行
+      // this.buyGoodsList = this.buyGoodsList.filter(v=>v.id!=id);
+
+      this.$store.commit('delBuyDate',{id:id});
       this.buyGoodsList = this.buyGoodsList.filter(v=>v.id!=id);
     }
   },
   created(){
     this.getBuyGoodsList();
   },
-  watch: {
-    buyGoodsData:{
-      handler(){
-        // console.log('监听到buyGoodsData发生了变化');
-        storage.set('goodsBuyCount',this.buyGoodsData);
-      },
-      deep:true
-    }
-  },
+  // 使用vuex后 已经不需要它了
+  // watch: {
+  //   buyGoodsData:{
+  //     handler(){
+  //       // console.log('监听到buyGoodsData发生了变化');
+  //       storage.set('goodsBuyCount',this.buyGoodsData);
+  //     },
+  //     deep:true
+  //   }
+  // },
   computed:{
 
     // 计算 已勾选商品的总件数
@@ -122,7 +137,9 @@ export default {
       // 指定sum为0 good就是buyGoodsList中的每一项
       return this.buyGoodsList.reduce( (sum,good) => {
         // good的isSelected属性的值 是否为true? 如果是那么执行第一句 如不是那么执行第二句，第二句的意思就是sum不变
-        return good.isSelected?sum+=this.buyGoodsData[good.id]:sum;
+        // return good.isSelected?sum+=this.buyGoodsData[good.id]:sum;
+        // 现在我们使用vuex 那就不需要再重本地当中取数据了
+        return good.isSelected?sum+=this.$store.state.goodsBuyCount[good.id]:sum;
       },0 );
     },
 
@@ -143,7 +160,9 @@ export default {
     selectedGoodsPriceTotal(){
       return this.buyGoodsList.reduce((sum,good)=>{
         // console.log(this.getBuyCountById(good.id));
-        return good.isSelected?sum += this.buyGoodsData[good.id] * good.sell_price : sum;
+        // return good.isSelected?sum += this.buyGoodsData[good.id] * good.sell_price : sum;
+        // 同样这里也不在本地中存储中获取数据 而是使用vuex中管理的数据
+        return good.isSelected?sum += this.$store.state.goodsBuyCount[good.id] * good.sell_price : sum;
       },0);  
     }
 
